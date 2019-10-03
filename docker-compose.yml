@@ -11,7 +11,7 @@ services:
   # MySQL (5.7)
   mysql:
     image: mysql:5.7
-    container_name: controltec-mysql
+    container_name: control-mysql
     volumes:
       - controltec-mysql-data:/var/lib/mysql
     ports:
@@ -25,7 +25,7 @@ services:
   # PHP (with Caddy)
   app:
     image: ambientum/php:7.1-caddy
-    container_name: controltec-app
+    container_name: control-app
     volumes:
       - .:/var/www/app
     ports:
