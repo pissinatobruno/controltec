@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePessoaJuridicaTable extends Migration
+class CreateNumeroContasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreatePessoaJuridicaTable extends Migration
      */
     public function up()
     {
-        Schema::create('pessoa_juridica', function (Blueprint $table) {
+        Schema::create('numero_contas', function (Blueprint $table) {
             $table->increments('id', 15);
-            $table->char('cnpj', 14);
-            $table->string('razao_social', 50);
+            $table->char('num_conta', 15);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreatePessoaJuridicaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pessoa_juridica');
+        Schema::dropIfExists('numero_contas');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdemServicoTable extends Migration
+class CreateOrdensDeServicosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOrdemServicoTable extends Migration
      */
     public function up()
     {
-        Schema::create('ordem_servico', function (Blueprint $table) {
+        Schema::create('ordens_de_servicos', function (Blueprint $table) {
             $table->increments('id', 15);
             $table->char('numero_os', 15);
             $table->date('data_execucao');
@@ -36,6 +36,6 @@ class CreateOrdemServicoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ordem_servico');
+        Schema::dropIfExists('ordens_de_servicos');
     }
 }

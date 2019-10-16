@@ -40,6 +40,6 @@ class FKClientes extends Migration
      */
     public function down()
     {
-       
+        //
     }
 }

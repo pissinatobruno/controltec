@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePessoaFisicaTable extends Migration
+class CreatePessoaFisicasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePessoaFisicaTable extends Migration
      */
     public function up()
     {
-        Schema::create('pessoa_fisica', function (Blueprint $table) {
+        Schema::create('pessoa_fisicas', function (Blueprint $table) {
             $table->increments('id', 15);
             $table->char('cpf', 11);
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreatePessoaFisicaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pessoa_fisica');
+        Schema::dropIfExists('pessoa_fisicas');
     }
 }

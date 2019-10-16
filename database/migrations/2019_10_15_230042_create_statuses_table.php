@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNumeroContaTable extends Migration
+class CreateStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateNumeroContaTable extends Migration
      */
     public function up()
     {
-        Schema::create('numero_conta', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->increments('id', 15);
-            $table->char('num_conta', 15);
+            $table->string('descricao', 255);
+            $table->boolean('ativo');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateNumeroContaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('numero_conta');
+        Schema::dropIfExists('statuses');
     }
 }

@@ -23,59 +23,58 @@
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                   Ordens de Serviço
-                  <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/examples/login.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Status</p>
-                  </a>
-                </li>
-              </ul>
             </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tree"></i>
                 <p>
                   Serviços
-                  <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/examples/login.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Metas</p>
-                  </a>
-                </li>
-              </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#"class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Agendamentos
-                </p>
+            </li>
+            <li class="nav-item">
+              <a href="#"class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Agendamentos
+                  </p>
               </a>
+            </li>  
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon far fa-plus-square"></i>
                 <p>
                   Cargos
-                  <i class="fas fa-angle-left right"></i>
+                  <!--i class="fas fa-angle-left right"></i-->
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/examples/login.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Funcionarios</p>
-                  </a>
-                </li>
-              </ul>
             </li>
+            <li class="nav-item">
+              <a href="#"class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Funcionarios
+                  </p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="#"class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Metas
+                  </p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="#"class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Status
+                  </p>
+              </a>
+            </li> 
           </nav>
         <!-- /.sidebar-menu -->
       </div>
