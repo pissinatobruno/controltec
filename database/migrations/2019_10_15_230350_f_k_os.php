@@ -17,7 +17,7 @@ class FKOs extends Migration
         
             $table->foreign('status_id')
                 ->references('id')
-                ->on('status');
+                ->on('statuses');
             $table->foreign('equipamento_id')
                 ->references('id')
                 ->on('equipamentos');

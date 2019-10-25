@@ -1,4 +1,4 @@
-@extends('index', ["current" => "OSs"])
+@extends('index')
 
 @section('content')
 <div class="card border">

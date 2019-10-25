@@ -25,11 +25,11 @@ class FKClientes extends Migration
 
             $table->foreign('pf_id')
             ->references('id')
-            ->on('pessoa_fisica');
+            ->on('pessoa_fisicas');
 
             $table->foreign('pj_id')
             ->references('id')
-            ->on('pessoa_juridica');
+            ->on('pessoa_juridicas');
         });
     }
 
