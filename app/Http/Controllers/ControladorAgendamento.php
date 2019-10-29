@@ -13,7 +13,7 @@ class ControladorAgendamento extends Controller
      */
     public function index()
     {
-        return view('agendamentos');
+        return view('listar.agendamentos');
     }
 
     /**
@@ -23,7 +23,7 @@ class ControladorAgendamento extends Controller
      */
     public function create()
     {
-        //
+        return view('cadastrar._formagendamento');
     }
 
     /**

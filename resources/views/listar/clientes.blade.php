@@ -3,7 +3,7 @@
 @section('content')
 <div class="card border">
     <div class="card-footer">
-        <a href="/cadastrar/novocliente" class="btn btn-sm btn-primary" role="button">Novo cliente</a>
+        <a href="{{ route('novocliente') }}" class="btn btn-sm btn-primary" role="button">Novo cliente</a>
     </div>
     <div class="card-body">
         <table class="table table-ordered table-hover">

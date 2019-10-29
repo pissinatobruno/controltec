@@ -24,7 +24,7 @@
         </table>       
     </div>
     <div class="card-footer">
-        <a href="/categorias/novo" class="btn btn-sm btn-primary" role="button">Novo Equipamento</a>
+        <a href="{{ route('novoequipamento') }}" class="btn btn-sm btn-primary" role="button">Novo Equipamento</a>
     </div>
 </div>
 

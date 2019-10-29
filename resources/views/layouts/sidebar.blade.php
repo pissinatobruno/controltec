@@ -19,7 +19,7 @@
               </a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a href="/clientes" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                   Clientes
@@ -27,7 +27,7 @@
               </a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a href="/ordensservico" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                   Ordens de Serviço
@@ -35,7 +35,7 @@
               </a>
             </li>
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a href="/servicos" class="nav-link">
                 <i class="nav-icon fas fa-tree"></i>
                 <p>
                   Serviços
@@ -43,7 +43,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#"class="nav-link">
+              <a href="/agendamentos"class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                   <p>
                     Agendamentos
@@ -51,7 +51,7 @@
               </a>
             </li>  
             <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a href="/cargos" class="nav-link">
                 <i class="nav-icon far fa-plus-square"></i>
                 <p>
                   Cargos
@@ -60,7 +60,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#"class="nav-link">
+              <a href="/funcionarios"class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                   <p>
                     Funcionarios
@@ -68,7 +68,7 @@
               </a>
             </li> 
             <li class="nav-item">
-              <a href="#"class="nav-link">
+              <a href="/metas"class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                   <p>
                     Metas
@@ -76,7 +76,7 @@
               </a>
             </li> 
             <li class="nav-item">
-              <a href="#"class="nav-link">
+              <a href="/status"class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                   <p>
                     Status

@@ -23,7 +23,7 @@ class ControladorCargo extends Controller
      */
     public function create()
     {
-        return view('cadastrar.novocargo');
+        return view('cadastrar._formcargo');
     }
 
     /**

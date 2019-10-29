@@ -30,6 +30,10 @@ class FKClientes extends Migration
             $table->foreign('pj_id')
             ->references('id')
             ->on('pessoa_juridicas');
+
+            $table->foreign('nc_id')
+            ->references('id')
+            ->on('numero_contas');
         });
     }
 

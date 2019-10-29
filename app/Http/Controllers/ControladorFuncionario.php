@@ -23,7 +23,7 @@ class ControladorFuncionario extends Controller
      */
     public function create()
     {
-        //
+        return view('cadastrar._formfuncionario');
     }
 
     /**

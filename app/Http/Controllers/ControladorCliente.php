@@ -23,7 +23,7 @@ class ControladorCliente extends Controller
      */
     public function create()
     {
-        return view('cadastrar.novocliente');
+        return view('cadastrar._formcliente');
     }
 
     /**

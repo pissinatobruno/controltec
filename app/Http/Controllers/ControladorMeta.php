@@ -23,7 +23,7 @@ class ControladorMeta extends Controller
      */
     public function create()
     {
-        //
+        return view('cadastrar._formmeta');
     }
 
     /**

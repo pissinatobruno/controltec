@@ -37,10 +37,12 @@ Route::get('/novocliente', 'ControladorCliente@create')->name('novocliente');
 Route::get('/novostatus', 'ControladorStatus@create')->name('novostatus');
 Route::get('/novocargo', 'ControladorCargo@create')->name('novocargo');
 Route::get('/novoequipamento', 'ControladorEquipamento@create')->name('novoequipamento');
+Route::get('/novofuncionario', 'ControladorFuncionario@create')->name('novofuncionario');
+Route::get('/novameta', 'ControladorMeta@create')->name('novameta');
 Route::get('/novaordem', 'ControladorOrdensServico@create')->name('novaordem');
-Route::get('/novaordem', 'ControladorOrdensServico@create')->name('novaordem');
-Route::get('/novaordem', 'ControladorOrdensServico@create')->name('novaordem');
-Route::get('/novaordem', 'ControladorOrdensServico@create')->name('novaordem');
+Route::get('/novoservico', 'ControladorServico@create')->name('novoservico');
+Route::get('/novoagendamento', 'ControladorAgendamento@create')->name('novoagendamento');
+
 
 
 

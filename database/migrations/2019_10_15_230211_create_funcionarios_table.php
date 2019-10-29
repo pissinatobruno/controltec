@@ -18,7 +18,6 @@ class CreateFuncionariosTable extends Migration
             $table->string('nome', 100);
             $table->string('usuario', 50);
             $table->char('senha', 9);
-            $table->string('tipo_registro', 50);
             $table->string('email', 100);
             $table->unsignedInteger('cargo_id');
             $table->boolean('ativo');

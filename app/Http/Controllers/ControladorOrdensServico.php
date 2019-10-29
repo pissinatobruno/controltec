@@ -13,7 +13,7 @@ class ControladorOrdensServico extends Controller
      */
     public function index()
     {
-        return view('listar.ordensservico');
+        return view('listar.ordensservicos');
     }
 
     /**
@@ -23,7 +23,7 @@ class ControladorOrdensServico extends Controller
      */
     public function create()
     {
-        return view('cadastrar.novaordem');
+        return view('cadastrar._formordem');
     }
 
     /**

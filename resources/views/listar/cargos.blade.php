@@ -24,7 +24,7 @@
         </table>        
     </div>
     <div class="card-footer">
-        <a href="#" class="btn btn-sm btn-primary" role="button">Novo Cargo</a>
+        <a href="{{ route('novocargo') }}" class="btn btn-sm btn-primary" role="button">Novo Cargo</a>
     </div>
 </div>
 

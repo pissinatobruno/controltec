@@ -23,7 +23,7 @@ class ControladorEquipamento extends Controller
      */
     public function create()
     {
-        return view('cadastrar.novoequipamento');
+        return view('cadastrar._formequipamento');
     }
 
     /**

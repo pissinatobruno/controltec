@@ -23,7 +23,7 @@ class ControladorStatus extends Controller
      */
     public function create()
     {
-        return view('cadastrar.novostatus');
+        return view('cadastrar._formstatus');
     }
 
     /**

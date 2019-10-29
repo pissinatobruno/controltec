@@ -18,7 +18,6 @@ class CreateServicosTable extends Migration
             $table->string('descricao', 255);
             $table->double('valor_clt', 8, 2);
             $table->double('valor_terc', 8, 2);
-            $table->boolean('numero_conta');
             $table->boolean('ativo');
             $table->timestamps();
         });
