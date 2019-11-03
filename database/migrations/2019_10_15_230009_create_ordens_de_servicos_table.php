@@ -23,9 +23,10 @@ class CreateOrdensDeServicosTable extends Migration
             $table->unsignedInteger('equipamento_id');
             $table->unsignedInteger('servico_id');
             $table->unsignedInteger('agendamento_id');
-            $table->unsignedInteger('funcionario_id');
-            $table->boolean('ativo');               
+            $table->unsignedInteger('tecnico_id');
+            $table->unsignedInteger('auxiliars_id');              
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,6 +20,7 @@ class CreateMetasTable extends Migration
             $table->string('mes', 255);
             $table->boolean('ativo');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

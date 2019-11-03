@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNumeroContasTable extends Migration
+class CreateTecnicosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateNumeroContasTable extends Migration
      */
     public function up()
     {
-        Schema::create('numero_contas', function (Blueprint $table) {
+        Schema::create('tecnicos', function (Blueprint $table) {
             $table->increments('id', 15);
-            $table->char('num_conta', 15);
+            $table->string('nome', 100);
+            $table->boolean('tp_registro');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateNumeroContasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('numero_contas');
+        Schema::dropIfExists('tecnicos');
     }
 }

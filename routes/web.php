@@ -10,20 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('index');
-});
-
 Auth::routes();
-
+Route::get('/users', 'ControladorUser@index')->name('users');
+Route::get('/', 'ControladorDashboard@index');
 Route::get('/clientes', 'ControladorCliente@index')->name('clientes');
-//Route::get('/enderecos', 'ControladorEndereco@index')->name('enderecos');
-//Route::get('/telefones', 'ControladorTelefone@index')->name('telefones');
-//Route::get('/pf', 'ControladorPessoaFisica@index')->name('pf');
-//Route::get('/pj', 'ControladorPessoaJuridica@index')->name('pj');
 Route::get('/ordensservico', 'ControladorOrdensServico@index')->name('ordensservico');
-Route::get('/numeroconta', 'ControladorNumeroConta@index')->name('numeroconta');
+//Route::get('/numeroconta', 'ControladorNumeroConta@index')->name('numeroconta');
 Route::get('/status', 'ControladorStatus@index')->name('status');
 Route::get('/servicos', 'ControladorServico@index')->name('servicos');
 Route::get('/metas', 'ControladorMeta@index')->name('metas');
@@ -32,6 +24,7 @@ Route::get('/cargos', 'ControladorCargo@index')->name('cargos');
 Route::get('/funcionarios', 'ControladorFuncionario@index')->name('funcionarios');
 Route::get('/equipamentos', 'ControladorEquipamento@index')->name('equipamentos');
 
+Route::get('/clientesdata', 'ControladorCliente@datatable')->name('clientes.datatable');
 
 Route::get('/novocliente', 'ControladorCliente@create')->name('novocliente');
 Route::get('/novostatus', 'ControladorStatus@create')->name('novostatus');
@@ -43,6 +36,7 @@ Route::get('/novaordem', 'ControladorOrdensServico@create')->name('novaordem');
 Route::get('/novoservico', 'ControladorServico@create')->name('novoservico');
 Route::get('/novoagendamento', 'ControladorAgendamento@create')->name('novoagendamento');
 
+Route::post('novocliente', 'ControladorCliente@store')->name('clientes.store');
 
 
 
@@ -51,3 +45,6 @@ Route::get('/novoagendamento', 'ControladorAgendamento@create')->name('novoagend
 
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

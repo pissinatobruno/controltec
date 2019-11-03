@@ -1,20 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
 use Illuminate\Http\Request;
 
-class ControladorPessoaFisica extends Controller
+class ControladorUser extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
-    {
-        //
+    {          
+        $user = User::all();
+        return $user;
     }
+    
+
 
     /**
      * Show the form for creating a new resource.
@@ -23,7 +28,7 @@ class ControladorPessoaFisica extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -34,8 +39,8 @@ class ControladorPessoaFisica extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+
+    }    
 
     /**
      * Display the specified resource.
@@ -82,3 +87,4 @@ class ControladorPessoaFisica extends Controller
         //
     }
 }
+

@@ -18,6 +18,7 @@ class CreateAgendamentosTable extends Migration
             $table->date('data_agendamento', 15);
             $table->string('periodo', 50);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

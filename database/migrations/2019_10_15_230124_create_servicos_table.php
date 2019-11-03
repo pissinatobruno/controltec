@@ -20,6 +20,7 @@ class CreateServicosTable extends Migration
             $table->double('valor_terc', 8, 2);
             $table->boolean('ativo');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

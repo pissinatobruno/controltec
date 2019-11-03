@@ -18,6 +18,7 @@ class CreateEquipamentosTable extends Migration
             $table->string('descricao', 255);
             $table->boolean('ativo');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

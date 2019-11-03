@@ -27,9 +27,12 @@ class FKOs extends Migration
             $table->foreign('agendamento_id')
                 ->references('id')
                 ->on('agendamentos');
-            $table->foreign('funcionario_id')
+            $table->foreign('tecnico_id')
                 ->references('id')
-                ->on('funcionarios');
+                ->on('tecnicos');
+            $table->foreign('auxiliars_id')
+                ->references('id')
+                ->on('auxiliars');    
             
             });
     }

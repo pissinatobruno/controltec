@@ -15,10 +15,14 @@ class CreateTelefonesTable extends Migration
     {
         Schema::create('telefones', function (Blueprint $table) {
             $table->increments('id', 15);
-            $table->char('ddd', 3);
-            $table->char('numero', 9);
-            $table->string('tipo_telefone', 50);
+            $table->char('numero', 11);
+            $table->unsignedInteger('cliente_id');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('cliente_id')
+            ->references('id')
+            ->on('clientes');
         });
     }
 
