@@ -146,6 +146,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Html\HtmlServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        App\Providers\ValidaCpfCnpjProvider::class,
+        
 
         /*
          * Package Service Providers...
@@ -164,6 +168,7 @@ return [
         //Yajra Datatable
         Yajra\DataTables\DataTablesServiceProvider::class,
 
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 
@@ -214,6 +219,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+
 
     ],
 

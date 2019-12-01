@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMetasTable extends Migration
+class CreatePessoaJuridicasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,18 @@ class CreateMetasTable extends Migration
      */
     public function up()
     {
-        Schema::create('metas', function (Blueprint $table) {
+        Schema::create('pessoa_juridicas', function (Blueprint $table) {
             $table->increments('id', 15);
-            $table->integer('meta_mensal');
-            $table->integer('contador');
-            $table->string('mes', 255);
-            $table->boolean('ativo');
+            $table->char('documento', 20)->unique();
+            $table->unsignedInteger('cliente_id');
             $table->timestamps();
             $table->softDeletes();
+
+
+            $table->foreign('cliente_id')
+            ->references('id')
+            ->on('clientes');
+
         });
     }
 
@@ -31,6 +35,6 @@ class CreateMetasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('metas');
+        Schema::dropIfExists('pessoa_juridicas');
     }
 }

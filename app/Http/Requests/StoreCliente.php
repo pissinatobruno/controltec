@@ -24,19 +24,21 @@ class StoreCliente extends FormRequest
     public function rules()
     {
         return [
-            'cliente.nome' => 'required|max:255',
-            'cliente.documento' => 'required|max:14',
-            'cliente.num_conta' => 'max:50',
-            'endereco.cep' => 'required|max:8',
-            'endereco.logradouro' => 'required|max:100',
-            'endereco.numero' => 'required|max:10',
-            'endereco.bairro' => 'required|max:100',
-            'endereco.estado' => 'required|max:2',
-            'endereco.complemento' => 'max:100',
-            'endereco.cidade' => 'required|max:50',
-            'endereco.tp_residencia' => 'required|max:50',
-            'endereco.pt_referencia' => 'max:50',
-            'telefone.*.numero' => 'max:50'
+            'nome' => 'required|max:255',
+            'num_conta' => 'required|max:15|unique:clientes',
+            'documento' => 'required',
+            'cep' => 'required|max:9',
+            'logradouro' => 'required|max:100',
+            'numero' => 'required|max:10',
+            'bairro' => 'required|max:100',
+            'estado' => 'required|max:2',
+            'complemento' => 'max:100',
+            'cidade' => 'required|max:50',
+            'tp_residencia' => 'required|max:50',
+            'pt_referencia' => 'max:50',
+            'telefone' => 'required|max:15',
+            'telefone2' => 'max:15'
+
         ];
         
     }
@@ -45,7 +47,9 @@ class StoreCliente extends FormRequest
     {
         return [
             'required' => 'Campo Obrigatório',
-            'max'  => 'Você ultrapassou o número de caracteres'
+            'max'  => 'Você ultrapassou o número de caracteres',
+            'unique' => 'Este cadastro já foi realizado',
+            'validacnpjcpf' => 'CPF/CNPJ invalido',
         ];
     }
 }

@@ -15,12 +15,12 @@ class CreateServicosTable extends Migration
     {
         Schema::create('servicos', function (Blueprint $table) {
             $table->increments('id', 15);
-            $table->string('descricao', 255);
-            $table->double('valor_clt', 8, 2);
-            $table->double('valor_terc', 8, 2);
-            $table->boolean('ativo');
+            $table->string('descricao', 80);
+            $table->double('valor_clt', 10);
+            $table->double('valor_terc', 10);
             $table->timestamps();
             $table->softDeletes();
+
         });
     }
 

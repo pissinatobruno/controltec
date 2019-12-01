@@ -2,6 +2,8 @@ var app = new Vue({
     el: '#app',
     mounted :function(){
         this.addMaskInputs();
+        this.removerMarcara();
+        this.removerMarcaraUp();
     },
     data: {
       cep: '',
@@ -37,7 +39,55 @@ var app = new Vue({
                 delimiters: ['-'],
                 blocks: [5, 3],
             });
-        }
+
+        },
+
+        removerMarcara : function(){
+            
+            $("#salvar").click(function(){
+
+               var cpfcnpj =  $('#cpfcnpj').val();
+               var tel = $('#telefone').val();
+               var cep = $('#cep').val();
+               var tel2 =  $('#telefone2').val();
+
+               cpfcnpj = cpfcnpj.replace(/[^0-9]+/g,'');
+               tel = tel.replace(/[^0-9]+/g,'');
+               cep = cep.replace(/[^0-9]+/g,'');
+               tel2 = tel2.replace(/[^0-9]+/g,'');
+
+               $('#cpfcnpj').val(cpfcnpj);
+               $('#telefone').val(tel);
+               $('#telefone2').val(tel2);
+               $('#cep').val(cep);
+
+            });
+
+        },
+
+        removerMarcaraUp : function(){
+            
+            $("#saveup").click(function(){
+
+               var cpfcnpj =  $('#cpfcnpj').val();
+               var tel = $('#telefone').val();
+               var cep = $('#cep').val();
+               var tel2 =  $('#telefone2').val();
+
+               cpfcnpj = cpfcnpj.replace(/[^0-9]+/g,'');
+               tel = tel.replace(/[^0-9]+/g,'');
+               cep = cep.replace(/[^0-9]+/g,'');
+               tel2 = tel2.replace(/[^0-9]+/g,'');
+
+               $('#cpfcnpj').val(cpfcnpj);
+               $('#telefone').val(tel);
+               $('#telefone2').val(tel2);
+               $('#cep').val(cep);
+
+            });
+
+        },
+
     },
     watch:{
         cep :function(novo, antigo){
@@ -47,4 +97,5 @@ var app = new Vue({
             }
         }
     }
-  })
+
+  });

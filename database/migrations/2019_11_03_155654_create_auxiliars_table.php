@@ -15,8 +15,7 @@ class CreateAuxiliarsTable extends Migration
     {
         Schema::create('auxiliars', function (Blueprint $table) {
             $table->increments('id', 15);
-            $table->string('nome', 100);
-            $table->boolean('tp_registro');
+            $table->string('nome', 80);
             $table->timestamps();
             $table->softDeletes();
         });

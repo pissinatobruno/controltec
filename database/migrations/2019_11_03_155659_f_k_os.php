@@ -13,27 +13,23 @@ class FKOs extends Migration
      */
     public function up()
     {
-        Schema::table('ordens_de_servicos', function (Blueprint $table){
+        Schema::table('os', function (Blueprint $table){
         
+            $table->foreign('cliente_id')
+                ->references('id')
+                ->on('clientes');
             $table->foreign('status_id')
                 ->references('id')
                 ->on('statuses');
-            $table->foreign('equipamento_id')
-                ->references('id')
-                ->on('equipamentos');
             $table->foreign('servico_id')
                 ->references('id')
                 ->on('servicos');
-            $table->foreign('agendamento_id')
-                ->references('id')
-                ->on('agendamentos');
             $table->foreign('tecnico_id')
                 ->references('id')
                 ->on('tecnicos');
-            $table->foreign('auxiliars_id')
+            $table->foreign('auxiliar_id')
                 ->references('id')
                 ->on('auxiliars');    
-            
             });
     }
 

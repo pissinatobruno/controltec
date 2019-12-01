@@ -1,11 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\status;
+use App\Http\Requests\StoreDescricao;
+use App\Http\Requests\StoreStatus;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
+use DB;
 
 class ControladorStatus extends Controller
 {
+    protected $status;
+
+    public function __construct(status $s){
+        $this->status = $s;
+
+    }
+
+
+    public function datatable(){
+        $model = $this->status->all();
+       //dd($model);
+        return Datatables::of($model)
+        ->make(true);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,16 +44,45 @@ class ControladorStatus extends Controller
         return view('cadastrar._formstatus');
     }
 
+    protected $ss;
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreStatus $request)
     {
-        //
-    }
+        $camp = $request->get('tipoStatus');
+        //dd($camp);
+
+        try
+        {
+            DB::beginTransaction();
+                
+                $status = status::updateOrCreate(['tipoStatus' => $request->get('tipoStatus')], ['descricao' => $request->get('descricao')]);
+
+            DB::commit();
+
+            return redirect()->route('status');
+
+        }catch(Exception $e)
+        {
+
+            DB::rollBack();
+            if ($request->wantsJson()) {
+
+                return response()->json([
+                    'error'   => true,
+                    'message' => $e->getMessageBag()
+                ]);
+            }
+
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        
+        }
+    }    
 
     /**
      * Display the specified resource.
@@ -54,31 +101,4 @@ class ControladorStatus extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

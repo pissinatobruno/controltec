@@ -42,16 +42,8 @@
                                 @endif
                                     <label for="password">{{ __('Password') }}</label>
                                 </div>
-                
-                                <div class="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="customCheck1">Remember password</label>
-                                </div>
                                 <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">{{ __('Login') }}</button>
-                                <div class="text-center">
-                                    <a class="small" href="href="{{ route('password.request') }}>Esqueceu sua senha?</a></div>
                                 </form>
-                            </div>
                             </div>
                         </div>
                         </div>

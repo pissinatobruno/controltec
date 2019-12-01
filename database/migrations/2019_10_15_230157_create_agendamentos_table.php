@@ -17,8 +17,13 @@ class CreateAgendamentosTable extends Migration
             $table->increments('id', 15);
             $table->date('data_agendamento', 15);
             $table->string('periodo', 50);
+            $table->unsignedInteger('os_id');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('os_id')
+            ->references('id')
+            ->on('os');
         });
     }
 

@@ -15,10 +15,10 @@ class CreateStatusesTable extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->increments('id', 15);
-            $table->string('descricao', 255);
-            $table->boolean('ativo');
+            $table->string('descricao', 80);
+            $table->string('tipoStatus',50);
             $table->timestamps();
-            $table->softDeletes();
+
         });
     }
 

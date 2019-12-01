@@ -15,8 +15,7 @@ class CreateEquipamentosTable extends Migration
     {
         Schema::create('equipamentos', function (Blueprint $table) {
             $table->increments('id', 15);
-            $table->string('descricao', 255);
-            $table->boolean('ativo');
+            $table->string('descricao', 80);
             $table->timestamps();
             $table->softDeletes();
         });
