@@ -3,8 +3,8 @@
 @section('content')
 <div class="card border">
     <div class="card-body">
-        <form class="form-horizontal" method="POST" action="{{ route('agendamento.store') }}">
-            {{ csrf_field() }}
+    {!! Form::model($agendamentos,['route' => ['agendamento.store'], 'class' => 'm-form m-form--fit m-form--label-align-right m-form--group-seperator', 'method'=>'POST']) !!}
+        {{ csrf_field() }}
             <fieldset>
                 <div class="panel panel-primary">
                     <div class="panel-body">
@@ -26,19 +26,14 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <label>Data de Agendamento</label>
-                                    <input id="agendamento" name="data_agendamento" value="{{old('data_agendamento')}}" placeholder="DD/MM/AAAA" class="form-control input-md" required="" type="date" maxlength="10" OnKeyPress="formatar('##/##/####', this)" onBlur="showhide()">
+                                    {!! Form::date('data_agendamento', old("data_agendamento"), array('class'=> "form-control m-input", 'OnKeyPress'=>"formatar('##/##/####', this)", 'onBlur'=>"showhide()", 'required'=>"required"))!!}
                                     <input id="id" name="os_id" value="{{$ordem->id}}" hidden="" type="text">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
                                     <label>Periodo</label>
-                                    <select class="form-control form-control-md" name="periodo">
-                                        <option>Selecione</option>
-                                        <option value="Manhã">Manhã</option>
-                                        <option value="Tarde">Tarde</option>
-                                        <option value="Noite">Noite</option>
-                                    </select>
+                                    {!! Form::select('periodo', array('Manhã' => 'Manhã', 'Tarde' => 'Tarde', 'Noite' => 'Noite'), old("periodo"), array('class' => "form-control m-input"))!!}
                                 </div>
                             </div>
                         </div>
@@ -50,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-        </form>
+        {!! Form::close() !!}
     </div>
 </div>
 @endsection

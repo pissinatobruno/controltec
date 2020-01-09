@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class servico extends Model
+class Servico extends Model
 {
     use SoftDeletes;
 

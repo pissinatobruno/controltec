@@ -37,7 +37,7 @@ class ControladorCliente extends Controller
     public function datatable(){
 
         $model = $this->cliente->all();
-       // dd($model);
+        //dd($model);
         return Datatables::of($model)
         ->editColumn('documento', function ($e)       
         {
@@ -161,7 +161,7 @@ class ControladorCliente extends Controller
         }
         else
         {
-            return response()->json( ["data" => "Cliente nao encontrado", "error" => true] );
+            return response()->json( ["data" => "false", "error" => true] );
         }
         
 
@@ -192,8 +192,10 @@ class ControladorCliente extends Controller
          {
              $cliente = $this->cliente->find($id);
              $cliente->update($request->only('nome'));
-             $cliente->enderecos()->update($request->only('cep', 'logradouro', 'bairro', 'cidade', 'estado', 'numero', 'complemento', 'pt_referencia', 'tp_residencia'));
-             $cliente->telefones()->update($request->only('telefone', 'telefone2'));
+             $endereco = Endereco::where("cliente_id", $cliente->id)->first();
+             $endereco->update($request->only('cep', 'logradouro', 'bairro', 'cidade', 'estado', 'numero', 'complemento', 'pt_referencia', 'tp_residencia'));
+             $telefone = Telefone::where("cliente_id", $cliente->id)->first();
+             $telefone->update($request->only('telefone', 'telefone2'));
              
 
              return redirect()->route('clientes');
@@ -229,6 +231,7 @@ class ControladorCliente extends Controller
         }
     }
 
+
     public function relatorio()
     {
         $clientes = cliente::all();
@@ -237,16 +240,28 @@ class ControladorCliente extends Controller
 
     public function pesquisa(request $request)
     {
-        $data_inicial = $request->get('data_inicial');
-        $data_final = $request->get('data_final');
+        $data_inicial = $request->data_inicial;
+        $data_final = $request->data_final;
 
         if($data_inicial != null)
         {
-            $clientes = cliente::whereBetween('created_at', [$data_inicial, $data_final])->get();
+            $clientes = cliente::whereDate('created_at', ">=",  $data_inicial)
+                        ->whereDate('created_at', "<=",  $data_final)
+                        ->get();
         }
 
         return view('relatorios.relatorioClientes', compact('clientes'));
 
+    }
+
+
+    public function log()
+    {
+        $mont = DB::table('audits')
+        ->select('user_id', 'event', 'auditable_id', 'auditable_type', 'old_values', 'new_values', 'updated_at')
+        ->get();
+
+        return view('relatorios.relatorioLog', compact('mont'));
     }
 
 

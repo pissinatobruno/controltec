@@ -80,7 +80,7 @@ class ControladorUser extends Controller
                 unset($data["password"]);
             }
 
-            if($request->get('admin' == true))
+            if($request->get('admin') == true)
             {
                 $this->user->create($data)->assignRole('Administrador');
             }

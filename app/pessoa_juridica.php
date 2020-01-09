@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class pessoa_juridica extends Model
+class Pessoa_juridica extends Model
 {
     use SoftDeletes;
     

@@ -5,27 +5,29 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class cliente extends Model
+class Cliente extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
     
     protected $fillable = ['nome','num_conta'];
 
     public function telefones(){
-        return $this->hasOne(telefone::class);
+        return $this->hasOne(Telefone::class)->withTrashed();
     }
 
     public function enderecos(){
-        return $this->hasOne(endereco::class);
+        return $this->hasOne(Endereco::class)->withTrashed();
     }
 
     public function pessoa_fisica(){
-        return $this->hasOne(pessoa_fisica::class);
+        return $this->hasOne(pessoa_fisica::class)->withTrashed();
     }
 
     public function pessoa_juridica(){
-        return $this->hasOne(pessoa_juridica::class);
+        return $this->hasOne(pessoa_juridica::class)->withTrashed();
     }
 
     public function getDocPessoaAttribute(){
@@ -40,7 +42,7 @@ class cliente extends Model
     }
 
     public function ordem(){
-        return $this->belongsTo(os::class);
+        return $this->hasMany(os::class);
     }
 
 

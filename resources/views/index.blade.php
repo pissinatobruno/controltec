@@ -104,14 +104,21 @@
     }
   });
 </script>
+
+<script src="{{asset('dist/js/adminlte.js')}}"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
+
 <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <!-- AdminLTE App -->
-<script src="{{asset('dist/js/adminlte.js')}}"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
+
+   
+
 @stack('scripts')
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="{{asset('js/vue.js')}}"></script>

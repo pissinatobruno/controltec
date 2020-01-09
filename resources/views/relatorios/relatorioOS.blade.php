@@ -5,20 +5,21 @@
 
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.5/bootstrap-table.min.css">
-
 @endpush
 @section('content')
-<form action="{{route('pesquisa.os')}}">
-    <div class="container">
-        <div class="card border">
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="row">
 
-                        <h3>Relatório de Ordens de Serviço</h3>
+<div class="container">
+    <div class="card border">
+        <div class="card-body">
+            <div class="form-group">
+                <div class="row">
 
-                    </div>
+                    <h3>Relatório de Ordens de Serviço</h3>
+
                 </div>
+            </div>
+
+       
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-3">
@@ -28,24 +29,27 @@
                             <input id="dtfinal" name="data_final" placeholder="DD/MM/AAAA" class="form-control input-md" type="date" maxlength="10" OnKeyPress="formatar('##/##/####', this)" onBlur="showhide()">
                         </div>
                         <div class="com-md-3">
-                            <input type="submit" value="Consultar" class="btn btn-primary">
+                            <button class="btn btn-primary btnPesquisar">Consultar </button>
                             <a type="button" href="{{route('relatorio.ordens')}}" value="Consultar" class="btn btn-primary">Limpar Filtro</a>
                         </div>
                     </div>
                 </div>
+
+
+
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-3">
-                            <select class="form-control form-control-md" name="servico_id">
-                                <option>Serviços</option>
+                            <select class="form-control form-control-md" name="servico_id" id="slcservico_id">
+                                <option value="">Serviços</option>
                                 @foreach($servicos as $servico)
                                 <option value="{{ $servico->id }}">{{ $servico->descricao }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-control form-control-md" name="servico_id">
-                                <option>Tecnicos</option>
+                            <select class="form-control form-control-md" name="tecnico_id" id="slctecnico_id">
+                                <option value="">Tecnicos</option>
                                 @foreach($tecnicos as $tecnico)
                                 <option value="{{ $tecnico->id }}">{{ $tecnico->nome }}</option>
                                 @endforeach
@@ -53,136 +57,71 @@
                         </div>
                     </div>
                 </div>
-                <table class="table" id="tbod">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">###</th>
-                            <th scope="col">#</th>
-                            <th scope="col">OS</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Serviços</th>
-                            <th scope="col">Técnico</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody bgcolor="white">
-                        @foreach($os as $o)
-                        <tr>
-                            <th scope="row"><input type="button" value="+" class="btn btn-primary"></th>
-                            <th>{{$o->id}}</th>
-                            <td>teste</td>
-                            <td>Nome</td>
-                            <td>Serviços</td>
-                            <td>Tecnico</td>
-                            <td>Status</td>
-                        </tr>
-                        <tr>
-                           <td class="hidden">Conteudo</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
 
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="{{ route('ordens.export.excel') }} " class="">
+                            <button class="btn btn-circle btn-success">
+                                <i class="fas fa-file-excel"> Excel</i>
+                            </button>
+                        </a>
+                    </div>
+                </div>
             </div>
+            <hr>
+
+            <table class="table table-bordered table-hover table-condensed table-responsible" style="width: 100%;" id="tbos">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">OS</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Serviços</th>
+                        <th scope="col">Técnico</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
         </div>
     </div>
-</form>
-
-
+</div>
 
 @endsection
 
 @push('scripts')
-<script src="//code.jquery.com/jquery.js"></script>
-<!-- DataTables -->
-<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-<!-- Bootstrap JavaScript -->
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.13.5/bootstrap-table.min.js"></script>
-<script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://kit.fontawesome.com/4d2ef26aa6.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+
+
+<script type="text/javascript">
+
+
+
+
     $(document).ready(function() {
-        $('#tbos').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'pdf',
-            ]
-        });
-    });
-</script>
 
-
-<script>
-    $(document).ready(function() {
-
-        geraTabela();
-
-        $("select").select2({
-            height: $("#client").innerHeight() + "px"
-        });
-        $("span.select2-selection--single").css("height", $("#client").innerHeight() + "px");
-        var line = $(".select2-container--default .select2-selection--single .select2-selection__rendered").css('line-height');
-        line = line.replace("px");
-        line = parseInt(line) + 5;
-        $(".select2-container--default .select2-selection--single .select2-selection__rendered").css('line-height', line + "px");
-
-    });
-
-
-    function geraTabela() {
-
-        var table = $('#tbos'); // id da sua tabela
-
-        /* Formatting function for row details */
-        function fnFormatDetails(oTable, nTr) {
-
-            var rowsTable = oTable.fnGetData(nTr);
-            var table = MyPedido.formatTable(rowsTable); //Rows table tem as linhas da sua tabela , da um console.log nele e ve o que ele devolve
-            console.log
-            return table;
-        }
-
-        var nCloneTd = document.createElement('td');
-        nCloneTd.innerHTML = '<span class="row-details row-details-close fa fa-plus-circle"></span>';
-
-        table.find('tbody tr').each(function() {
-            this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
-        });
-
-        var oTable = table.dataTable({
-
-            dom: 'Bfrtip',
-            buttons: ['colvis', 'print', 'excel', ],
-            format: 'd/m/y',
-            order: [
-                [2, 'DESC'],
-                [16, 'DESC']
-            ],
-            pageLength: 20,
-            autoWidth: true,
-            resposive: false,
-            columnDefs: [{
-                "orderable": true,
-                "targets": 2,
-                "type": 'date-br'
-            }],
-            language: {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "Nenhum dado encontrado",
-                "info": "Exibindo de _START_ à _END_ de _TOTAL_ linhas",
-                "infoEmpty": "Nenhuma linha encontrada",
-                "infoFiltered": "(Filtrado 1 de _MAX_ registros)",
-                "lengthMenu": "Exibir _MENU_ linhas",
-                "search": "Pesquisa:",
-                "zeroRecords": "Nenhum dado encontrado"
-            },
-        });
-
-        var tableWrapper = $('#tbos'); // id da sua tabela
-        tableWrapper.find('.dataTables_length select').select2();
+        const oTable = initTable()
+        const table = $('#tbos'); // id da sua tabela
 
         table.on('click', ' tbody td .row-details', function() {
 
@@ -197,55 +136,149 @@
                 $(this).addClass("fa-minus-circle").removeClass("fa-plus-circle");
 
                 oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
-
-                // $(this).css('padding', 'inherit');
-
-                //$(".hiddenTable thead tr:first-child th:first-child").remove();
-
-                $(".hiddenTable thead th").removeAttr('orderable');
-                $(".hiddenTable thead th").removeAttr('searchable');
-                $(".hiddenTable thead tr").removeAttr('aria-controls');
-                $(".hiddenTable thead tr").removeAttr('style');
-
             }
         });
+
+    });
+
+
+    initTable = () => {
+        var table = $('#tbos'); // id da sua tabela
+
+        return table.dataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            loading: true,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
+            },
+            ajax: {
+                url: "{{route('ordens.rdatatable')}}",
+                type: "GET",
+                data: function(d) {
+                    d.data_inicial = $("#dtinicial").val();
+                    d.data_final = $("#dtfinal").val();
+                    d.servico_id = $("#slcservico_id").val();
+                    d.tecnico_id = $("#slctecnico_id").val();
+                    return d;
+                },
+                complete: function() {
+                    gerarBotaoShowInfo();
+                }
+            },
+            columns: [{
+                    data: "id"
+                },
+                {
+                    data: "numero_os"
+                },
+                {
+                    data: "nome"
+                },
+                {
+                    data: "servico"
+                },
+                {
+                    data: "tecnico"
+                },
+                {
+                    data: "status_id"
+                },
+                {
+                    data: null,
+                    className: "center",
+                    defaultContent: '<a href="" class="btndownoadPdf"> <button class="btn btn-warning btn-circle"> <i class="fas fa-file-pdf"></i> </button> </a>'
+                }
+            ]
+        });
+
+        order: [
+            [1, 'asc']
+        ]
     }
 
-    /* CLASS */
-    function Reports() {
+    /* Ao CLICAR NO BOTAO DE ENVIAR DO FORM , EXECUTA */
+    $(".btnPesquisar").click(function(event) {
 
-        return true;
+        event.preventDefault(); /* previne clicks duplos */
+
+        try {
+            var myTable = $("#tbos").DataTable().ajax.reload(null, false);
+
+        } catch (error) {
+            console.log(error);
+        }
+        /* Reload nos dados da tabela */
+
+        return false;
+    }); /* end click */
+
+
+    $('#tbos').on('click', 'a.btndownoadPdf', function(e) {
+        e.preventDefault();
+
+        const tr = $('#tbos').dataTable().fnGetData($(this).closest('tr'));
+
+        let url = "{{ route('order.report.pdf', 'id') }} ";
+
+        url = url.replace("id", tr.id);
+
+        window.location.href = url;
+    });
+
+
+    /* Esse é o cara que recebe os dados quando voce clica no botao de + ( show info ) */
+    function fnFormatDetails(oTable, nTr) {
+
+        /* Aqui acessamos os dados do nosso datatable e extraimos um objeto com as info da linha ( row da tabela )*/
+        var rowsTable = oTable.fnGetData(nTr);
+        return formatTable(rowsTable, nTr); /* aqui retornamos uma funcao que TEM QUE RETORNAR UM HTML */
     }
 
-    Reports.prototype.formatTable = function(rowsTable) {
+    function gerarBotaoShowInfo() {
+
+        var table = $('#tbos'); // id da sua tabela
+
+        var nCloneTd = document.createElement('td');
+        nCloneTd.innerHTML = '<span class="row-details row-details-close fa fa-plus-circle"></span>';
+
+        table.find('tbody tr').each(function() {
+            this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+        });
+
+
+        console.log("exibindom a tabela", table);
+
+    }
+
+
+    /* funcao que é executada dentro de fnFormatDetails , ela passa como parametro um Objeto com os dados da Linha da tabela*/
+    formatTable = (rowsTable, data) => {
 
         console.log(rowsTable);
-        // .innerHTML;
 
-        var thead = $("#tbos-table").find("thead").get(0);
 
-        $(thead).children('tr:last-child').append('<th style="background-color:yellow; width:50px">MKP</th>');
+        var thead = $("#tbos").find("thead").get(0);
 
         var html = "<table class='table hiddenTable display compact table-striped table-bordered nowrap'>";
-        html += "<thead>";
-        html += thead.innerHTML;
-        html += "</thead>";
+
+
         html += "<tbody>";
 
-        $(thead).children('tr:last-child').children('th:last-child').remove();
-
-
-        //  Esse pedidos contem sua ROWS da tabela
+        /* Aqui criamos o corpo da nossa tabela que sera exibida ao carregar o botao de + ( show info ) */
         html += "<tr>";
-        html += "<td> # </td>";
-        html += "<td> " + moment(pedidos.FirstCheckin).format("DD/MM/YYYY") + "</td>";
-        html += "<td> " + parseFloat(bednight).toFixed(2) + "</td>";
-        html += "<td> " + parseFloat(adr).toFixed(2) + "</td>";
-
+        html += "<td> Descricao Servico </td>";
+        html += "<td colspan=3> " + rowsTable.descricao_servico + " </td>";
 
         html += "</tr>";
 
-
+        html += "<tr>";
+        html += "<td colspan=2> Data de vencimento: - " + rowsTable.data_vencimento + "</td>";
+        html += "</tr>";
+        html += "<tr>";
+        html += "<td colspan=2> Data de Execução: - " + rowsTable.data_execucao + "</td>";
+        html += "</tr>";
         html += "</tbody>";
         html += "</table>";
 
@@ -255,14 +288,6 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+
 
 @endpush

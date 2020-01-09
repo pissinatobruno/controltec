@@ -76,7 +76,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link" data-toggle="modal" data-target="#modalMeta" onclick="openModalMeta()">
+        <a href="/metas" class="nav-link" class="nav-link">
           <i class="nav-icon fas fa-th"></i>
           <p>
             Metas
@@ -118,6 +118,18 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST">
               @csrf
             </form>
+          </li>
+          <li class="nav-item">
+            <a href="/log" class="nav-link">
+               <i class="far fa-circle nav-icon"></i>
+              <p>Logs do Sistema</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="https://mega.nz/#!G0ZQlYaA!JhfIKYrU79JsrysjipnybSFQy0U4bVd5ocOFbC-KXYc" class="nav-link">
+               <i class="far fa-circle nav-icon"></i>
+              <p>Manual do Sistema</p>
+            </a>
           </li>
         </ul>
 

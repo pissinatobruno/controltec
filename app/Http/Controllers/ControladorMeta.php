@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
+use App\os;
 
 class ControladorMeta extends Controller
 {
@@ -13,72 +15,19 @@ class ControladorMeta extends Controller
      */
     public function index()
     {
-        return view('metas');
+        $mes = date('m');
+        $geral = DB::table('os')->where("deleted_at", null)->count();
+        $grafic = DB::table('os')->whereMonth("created_at",$mes)->where("deleted_at", null)->count();
+        $fin = DB::table('os')->where('status_id', '5')->where("deleted_at", null)->count();
+        $status = DB::table('os')->where('status_id', '5')->whereMonth("created_at",$mes)->where("deleted_at", null)->count();
+        if($grafic != 0)
+            $tot = (($status/$grafic)*100);
+        else
+            $tot = 0;
+        $tot = number_format($tot, 2, '.', '');
+        //dd($grafic);
+
+        return view('relatorios._formmeta', compact('grafic', 'status', 'mes', 'tot', 'geral', 'fin'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('cadastrar._formmeta');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

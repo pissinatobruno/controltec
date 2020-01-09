@@ -26,7 +26,7 @@ class StoreCliente extends FormRequest
         return [
             'nome' => 'required|max:255',
             'num_conta' => 'required|max:15|unique:clientes',
-            'documento' => 'required',
+            'documento' => 'required|validacnpjcpf',
             'cep' => 'required|max:9',
             'logradouro' => 'required|max:100',
             'numero' => 'required|max:10',

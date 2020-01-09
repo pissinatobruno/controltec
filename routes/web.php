@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/tecnicos', 'ControladorTecnico@index')->name('tecnicos');
         Route::get('/auxiliares', 'ControladorAuxiliar@index')->name('auxiliares');
         Route::get('/ordens', 'ControladorOrdensServico@index')->name('ordens');
+       
         
 
         Route::get('/clientesdata', 'ControladorCliente@datatable')->name('clientes.datatable');
@@ -35,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/tecnicodata', 'ControladorTecnico@datatable')->name('tecnicos.datatable');
         Route::get('/servicodata', 'ControladorServico@datatable')->name('servico.datatable');
         Route::get('/osdata', 'ControladorOrdensServico@datatable')->name('ordens.datatable');
+       
 
         Route::get('/clientescpf/{cpf}', 'ControladorCliente@show')->name('clientes.show');
 
@@ -102,12 +104,21 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::put('/upuser/{id}', 'ControladorUser@update')->name('user.update');
                 Route::delete('/deluser/{id}', 'ControladorUser@destroy')->name('user.delete');
 
+                Route::get('/osrdata', 'ControladorOrdensServico@rdatatable')->name('ordens.rdatatable');
+
                 Route::get('/relatorios/clientes', 'ControladorCliente@relatorio')->name('relatorio.clientes');
-                Route::get('/relatorios/rotas', 'ControladorCliente@relatorio')->name('relatorio.rotas');
+                Route::get('/relatorios/rotas', 'ControladorRelatorioRota@relatorio')->name('relatorio.rotas');
                 Route::get('/relatorios/ordens', 'ControladorOrdensServico@relatorio')->name('relatorio.ordens');
 
+                Route::get('/relatorios/pesrotas', 'ControladorRelatorioRota@pesquisa')->name('pesquisa.rota');
                 Route::get('/relatorios/pesclientes', 'ControladorCliente@pesquisa')->name('pesquisa.clientes');
-                Route::get('/relatorios/pesos', 'ControladorOrdensServico@pesquisa')->name('pesquisa.os');
+                Route::get('/relatorios/pesos', 'ControladorOrdensServico@rdatatable')->name('pesquisa.os');
+                Route::get('ordens-servico/export/excel', 'ControladorOrdensServico@export')->name("ordens.export.excel");
+                Route::get('/pdf/{id}', 'ControladorRelatorioOS@pdf')->name('order.report.pdf');
+
+                Route::get('/log', 'ControladorCliente@log')->name('log.clientes');
+                
+
         });
 });
 

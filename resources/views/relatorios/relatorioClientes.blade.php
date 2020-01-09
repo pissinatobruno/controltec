@@ -39,7 +39,6 @@
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Telefone</th>
-                            <th scope="col">CPF</th>
                             <th scope="col">Conta</th>
                             <th scope="col">Data Criação</th>
                         </tr>
@@ -50,7 +49,6 @@
                             <th scope="row">{{$c->id}}</th>
                             <td>{{$c->nome}}</td>
                             <td>{{$c->telefones->telefone}}</td>
-                            <td>{{$c->pessoa_fisica->documento}}</td>
                             <td>{{$c->num_conta}}</td>
                             <td>{{$c->created_at}}</td>
                         </tr>

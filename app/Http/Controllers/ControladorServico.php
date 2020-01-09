@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreServicos;
 use Illuminate\Http\Request;
 use App\servico;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 
 class ControladorServico extends Controller

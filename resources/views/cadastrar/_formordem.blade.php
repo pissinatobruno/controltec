@@ -37,9 +37,6 @@
                                         <input id="cliente_id" name="cliente_id" hidden= "" class="form-control input-md" type="text">
                                     </div>
                                 </div>
-                                <div class="col-md-9" style="text-align: right;">
-                                    <a href="{{ route('novocliente') }}" class="btn btn-sm btn-primary" role="button">Novo cliente</a>
-                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -102,7 +99,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Nº OS</label>
-                                    <input id="os" name="numero_os" placeholder="Numero OS" class="form-control input-md" required="" type="text">
+                                    <input id="os" name="numero_os" placeholder="Numero OS" class="form-control input-md" maxlength="15" required="" type="text">
                                 </div>
                             </div>
                         </div>
@@ -110,7 +107,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="obs">Observações</label>
-                                    <textarea class="form-control" style="resize: none" id="obs" rows="3" name="descricao_servico"></textarea>
+                                    <textarea class="form-control" style="resize: none" id="obs" rows="3" maxlength="255" name="descricao_servico"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +177,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit" style="text-align:right;" class="btn btn-primary">ENVIAR</button>
+                                    <button type="submit" style="text-align:right;" id='btn_env' class="btn btn-primary">ENVIAR</button>
                                 </div>
                             </div>
                         </div>
@@ -194,6 +191,7 @@
 
                 <script>
                     $(document).ready(function() {
+                        $('#btn_env').attr('disabled', 'disabled');
                         $(cpfcnpj).blur(function() {
                             var c = $("#cpfcnpj").val().replace(/[^0-9]+/g, '');
                             var url = "{{ Route('clientes.show', ':temp')}}";
@@ -211,19 +209,27 @@
                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                 },
                                 success: function(json) {
-                                    console.log(json);
+                                    //console.log(json);
                                     var dados = json.data[0];
-                                    $(cliente_id).val(dados.id);
-                                    $(Nome).val(dados.nome);
-                                    $(conta).val(dados.num_conta);
-                                    $(telefone).val(dados.telefones.telefone);
-                                    $(endereco).val(dados.enderecos.logradouro);
-                                    $(numero).val(dados.enderecos.numero);
-                                    $(bairro).val(dados.enderecos.bairro);
-                                    $(residencia).val(dados.enderecos.tp_residencia);
-                                    $(cep).val(dados.enderecos.cep);
-                                    $(estado).val(dados.enderecos.estado);
-                                    $(cidade).val(dados.enderecos.cidade);
+                                    if(json.error == true)
+                                    {
+                                        alert('Cliente não encontrado. Por Favor Insira o cpf de um cliente já cadastrado.');
+                                        $(cpfcnpj).val("");
+                                        $(cpfcnpj).focus();
+                                    }else{ 
+                                        $('#btn_env').removeAttr('disabled', 'disabled');                              
+                                        $(cliente_id).val(dados.id);
+                                        $(Nome).val(dados.nome);
+                                        $(conta).val(dados.num_conta);
+                                        $(telefone).val(dados.telefones.telefone);
+                                        $(endereco).val(dados.enderecos.logradouro);
+                                        $(numero).val(dados.enderecos.numero);
+                                        $(bairro).val(dados.enderecos.bairro);
+                                        $(residencia).val(dados.enderecos.tp_residencia);
+                                        $(cep).val(dados.enderecos.cep);
+                                        $(estado).val(dados.enderecos.estado);
+                                        $(cidade).val(dados.enderecos.cidade);
+                                    }
 
                                 },
                             });

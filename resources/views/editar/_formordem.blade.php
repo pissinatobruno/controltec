@@ -115,8 +115,9 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label>Técnicos</label>
-                                    <select class="form-control form-control-md" name="tecnico_id">
-                                        @foreach($tecnicos as $tecnico)
+                                    <select class="form-control form-control-md" name="tecnico_id" required="">
+                                    <option value="">Selecione<option>    
+                                    @foreach($tecnicos as $tecnico)
                                         @if($tec->id == $tecnico->id)
                                         <option value="{{ $tecnico->id }}" selected>{{ $tecnico->nome }}</option>
                                         @else
@@ -127,7 +128,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Auxiliar</label>
-                                    <select class="form-control form-control-md" name="auxiliar_id">
+                                    <select class="form-control form-control-md" name="auxiliar_id" required="">
+                                    <option value="">Selecione<option>    
                                         @foreach($auxiliares as $auxiliar)
                                         @if($aux->id == $auxiliar->id)
                                         <option value="{{ $auxiliar->id }}" selected>{{ $auxiliar->nome }}</option>
@@ -151,7 +153,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Serviço</label>
-                                    <select class="form-control form-control-md" name="servico_id">
+                                    <select class="form-control form-control-md" name="servico_id" required="">
+                                    <option value="">Selecione<option>    
                                         @foreach($servicos as $servico)
                                             @if($ser->id == $servico->id)
                                             <option value="{{ $servico->id }}" selected>{{ $servico->descricao }}</option>
@@ -180,7 +183,6 @@
                                 <div class="col-md-12">
                                     <label>Equipamentos</label>
                                     <br>
-                                   
                                     @foreach($equipamentos as $e)
                                         @if(in_array($e->id, $ordens->equipamento->pluck("id")->toArray()))
                                             <input type="checkbox" name="equipamento_id[]" value="{{$e->id}}" checked >

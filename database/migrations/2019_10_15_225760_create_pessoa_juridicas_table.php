@@ -20,11 +20,9 @@ class CreatePessoaJuridicasTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-
             $table->foreign('cliente_id')
             ->references('id')
             ->on('clientes');
-
         });
     }
 

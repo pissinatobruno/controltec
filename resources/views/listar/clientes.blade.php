@@ -60,6 +60,7 @@
                     complete: function() {
 
                         datatableAjaxCallback();
+                        
                     }
                 },
                 columns: [{

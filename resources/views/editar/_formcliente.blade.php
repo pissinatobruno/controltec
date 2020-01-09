@@ -1,6 +1,7 @@
 @extends('index')
 
 @section('content')
+
 <div class="card border">
     <div class="card-body">
         <!--form class="form-horizontal" method="POST" action="{{ route('clientes.update', $clientes['id']) }}">
@@ -140,9 +141,11 @@
                 {!!Form::close()!!}
             </div>
     </div>
-    @endsection
+    
 
+@endsection
     @push('scripts')
+
     <script src="https://unpkg.com/imask"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.5.3/cleave.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.5.3/addons/cleave-phone.br.js"></script>

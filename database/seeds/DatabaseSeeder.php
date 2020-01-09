@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
         $this->call('AuxiliarSeeder');
         $this->call('EquipamentoSeeder');
         $this->call('ServicosSeeder');
-        $this->call('StatusSeeder');
+         $this->call('StatusSeeder');
         $this->call('TecnicosSeeder');
         $this->call('OSSeeder');
 

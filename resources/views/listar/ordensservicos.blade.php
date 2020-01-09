@@ -19,7 +19,7 @@
         <table class="table table-bordered table-hover table-condensed table-responsible" id="m_table_1">
             <thead>
                 <tr>
-                    <th>CÓDIGO</th>
+                    <th>ID</th>
                     <th>NUMERO OS</th>
                     <th>CIDADE</th>
                     <th>TECNICO</th>

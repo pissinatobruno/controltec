@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\os;
 
-class equipamento extends Model
+class Equipamento extends Model
 {
     use SoftDeletes;
 
@@ -15,6 +15,6 @@ class equipamento extends Model
 
     public function ordem(): BelongsToMany
     {
-        return $this->belongsToMany(os::class, 'OrdensEquipamentos');
+        return $this->belongsToMany(os::class, 'OrdensEquipamentos')->withTrashed();
     }
 }

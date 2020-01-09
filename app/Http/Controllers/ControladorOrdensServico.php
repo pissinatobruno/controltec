@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\auxiliar;
-use App\equipamento;
+use DB;
+use App\Os;
+use Exception;
+use App\status;
+use App\cliente;
 use App\servico;
 use App\tecnico;
-use App\status;
-use App\os;
-use App\Http\Requests\StoreCliente;
-use App\cliente;
-use Exception;
-use Yajra\Datatables\Datatables;
+use App\auxiliar;
+use Carbon\Carbon;
+use App\equipamento;
 use Illuminate\Http\Request;
-use DB;
+use App\Http\Requests\StoreOs;
+use Yajra\Datatables\Datatables;
+use App\Http\Requests\StoreCliente;
+use App\Exports\OrdensServicoExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ControladorOrdensServico extends Controller
 {
@@ -26,7 +31,7 @@ class ControladorOrdensServico extends Controller
     protected $auxiliar;
 
 
-    public function __construct(os $o, cliente $c, tecnico $t, equipamento $e, status $s, auxiliar $a, servico $ser){
+    public function __construct(Os $o, cliente $c, tecnico $t, equipamento $e, status $s, auxiliar $a, servico $ser){
         $this->cliente = $c;
         $this->tecnico = $t;
         $this->equipamento = $e;
@@ -54,32 +59,35 @@ class ControladorOrdensServico extends Controller
         return Datatables::of($model)
         ->editColumn('cidade', function ($e)       
         {
-            $c = cliente::find($e->cliente_id);
-            return $c->enderecos->cidade;
+            $c = cliente::withTrashed()->find($e->cliente_id);
+            $cli = $c->enderecos()->withTrashed()->find($e->cliente_id);
+            //dd($cli->cidade);
+            return $cli->cidade;
         })    
         ->editColumn('tecnico', function ($e)       
         {   
-            $t = tecnico::find($e->tecnico_id);
+            $t = tecnico::withTrashed()->find($e->tecnico_id);
             return $t->nome;
         }) 
         ->editColumn('servico', function ($e)       
         {   
-            $ser = servico::find($e->servico_id);
+            $ser = servico::withTrashed()->find($e->servico_id);
+            //dd($ser->descricao);
             return $ser->descricao;
         })
         ->editColumn('status', function ($e)       
         {   
             $s = status::find($e->status_id);
-            return $s->tipo_status;
+            return $s->tipoStatus;
         })
         ->addColumn('action', function ($e)   
         {
 
             $urla = Route('agendamento.edit', $e->id);
             $url = Route('editordem', $e->id);
-            return '<a href="'.$url.'" class="btn btn-primary btn-sm btn-brand"><i class="glyphicon glyphicon-edit"></i> Editar </a>
+            return '<a href="'.$url.'" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-edit"></i>Editar</a>
             <button class="btn btn-sm btn-danger btnApagar" data-id="'.$e->id.'"><i class="glyphicon glyphicon-edit"></i>Excluir</button>
-            <a href="'.$urla.'" class="btn btn-sm btn-success btnAgendar"> Agendar </a>';
+            <a href="'.$urla.'" class="btn btn-sm btn-success btnAgendar">Agendar</a>';
 
         })
         ->rawColumns(["action"])
@@ -108,7 +116,7 @@ class ControladorOrdensServico extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOs $request)
     {
         $valores = $request->get('equipamento_id');
 
@@ -161,18 +169,15 @@ class ControladorOrdensServico extends Controller
 
 
         $ordens = $this->os->where("id", $id)->with("equipamento")->first();
-      //dd($ordens->equipamento->pluck("id"));
-
-
-        $clientes = cliente::find($ordens->cliente_id);
-        $tec = tecnico::find($ordens->tecnico_id);
-        $aux = auxiliar::find($ordens->auxiliar_id);
+        $clientes = cliente::withTrashed()->find($ordens->cliente_id);
+        $tec = tecnico::withTrashed()->find($ordens->tecnico_id);
+        $aux = auxiliar::withTrashed()->find($ordens->auxiliar_id);
         $sta = status::find($ordens->status_id);
-        $ser = servico::find($ordens->servico_id);
+        $ser = servico::withTrashed()->find($ordens->servico_id);
         $tecnicos = tecnico::all();
         $auxiliares = auxiliar::all();
         $status = status::all();
-        $equipamentos = equipamento::all();
+        $equipamentos = equipamento::withTrashed()->get();
         $servicos = servico::all();
 
         return view('editar._formordem', compact('ordens', 'clientes', 'tecnicos', 'auxiliares','status','equipamentos','servicos','tec', 'aux', 'sta', 'ser'));
@@ -185,7 +190,7 @@ class ControladorOrdensServico extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreOs $request, $id)
     {
         $valores = $request->get('equipamento_id');
         try
@@ -237,27 +242,87 @@ class ControladorOrdensServico extends Controller
          }  
     }
 
-    public function relatorio()
-    {
-        
-        $clientes = cliente::all();
-        $os = os::all();
-        $tecnicos = tecnico::all();
-        $servicos = servico::all();
-        return view('relatorios.relatorioOS', compact('clientes', 'os', 'tecnicos', 'servicos'));
-    }
+    
 
-    public function pesquisa(request $request)
-    {
-        $data_inicial = $request->get('data_inicial');
-        $data_final = $request->get('data_final');
+    public function pesquisa(Request $request, $collection) {
+
+        $data_inicial = $request->data_inicial;
+        $data_final= $request->data_final;
+        $servico_id= $request->servico_id;
+        $tecnico_id= $request->tecnico_id;
+
 
         if($data_inicial != null)
         {
-            $clientes = cliente::whereBetween('created_at', [$data_inicial, $data_final])->get();
+          $collection =  $collection->whereDate('created_at', ">=",  $data_inicial);
         }
 
-        return view('relatorios.relatorioOS', compact('clientes', 'os', 'tecnicos', 'servicos'));
+        if($data_final != null)
+        {
+            $collection =  $collection->whereDate('created_at', "<=",  $data_final);
+        }
 
+        if($servico_id != null)
+        {
+            $collection =  $collection->where('servico_id',  $servico_id);
+        }
+
+        if($tecnico_id != null)
+        {
+            $collection =  $collection->where('tecnico_id',  $tecnico_id);
+        }
+        
+ 
+        return $collection->get();
+    }
+
+
+    public function rdatatable(Request $request){
+        
+         //   $model = $this->os->all();
+
+         $os = $this->pesquisa($request , $this->os);
+
+        // return  view('relatorios.relatorioOS', compact('clientes', 'os', 'tecnicos', 'servicos','status'));
+ 
+        return Datatables::of($os)
+        ->editColumn('nome', function ($e)       
+        {
+            $c = cliente::withTrashed()->find($e->cliente_id);
+            return $c->nome;
+        })
+        ->editColumn('servico', function ($e)       
+        {   
+            $ser = servico::withTrashed()->find($e->servico_id);
+            return $ser->descricao;
+        })    
+        ->editColumn('tecnico', function ($e)       
+        {   
+            $t = tecnico::withTrashed()->find($e->tecnico_id);
+
+            return $t->nome;
+        }) 
+        ->editColumn('status_id', function ($e)       
+        {   
+            $s = status::find($e->status_id);
+            return $s->tipoStatus;
+        })
+        ->make(true);
+    }
+
+    public function relatorio()
+    {
+        $os = os::all();
+        $clientes = cliente::all();   
+        $tecnicos = tecnico::all();
+        $servicos = servico::all();
+        $status = status::all();
+        return view('relatorios.relatorioOS', compact('clientes', 'os', 'tecnicos', 'servicos','status'));
+    }
+
+
+    public function export() 
+    {
+        return (new OrdensServicoExport)->dateInicial(null)->dateFinal(null)->download('orderns_servico'.Carbon::now().'.xlsx');
     }
 }
